@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <context:property-placeholder location="${classpath:client.properties},
+                                            ${classpath:db.properties}"
+                                  system-properties-mode="OVERRIDE"
+                                  ignore-resource-not-found="false"/>
+    <bean id="client" class = "com.yet.spring.core.beans.Client">
+        <constructor-arg value="${id}" />
+        <constructor-arg value="${name}" />
+        <property name="greeting" value="${greeting}"/>
+    </bean>
+
+    <util:map id="loggerMap">
+        <entry key="INFO" value-ref="consoleEventLogger" />
+        <entry key="ERROR" value-ref="combinedEventLogger" />
+    </util:map>
+
+
+    <bean id="app" class = "com.yet.spring.core.util.App">
+        <constructor-arg ref="client"/>
+        <constructor-arg value="#{ T(com.yet.spring.core.beans.Event).isDay(8,17) ?
+            cacheFileEventLogger : consoleEventLogger }"/>
+        <constructor-arg ref="loggerMap"/>
+
+    </bean>
+    <bean id="event" class="com.yet.spring.core.beans.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg>
+            <bean id = "dateFormat" class="java.text.DateFormat"
+                  factory-method="getDateTimeInstance"/>
+        </constructor-arg>
+    </bean>
+</beans>
