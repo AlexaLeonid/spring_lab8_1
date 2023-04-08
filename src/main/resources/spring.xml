@@ -18,11 +18,13 @@
     <bean id="client" class = "com.yet.spring.core.beans.Client">
         <constructor-arg value="${id}" />
         <constructor-arg value="${name}" />
+        <constructor-arg value="${city}"/>
         <property name="greeting" value="${greeting}"/>
     </bean>
 
     <util:map id="loggerMap">
         <entry key="INFO" value-ref="consoleEventLogger" />
+        <entry key="WARNING" value-ref="dbLogger" />
         <entry key="ERROR" value-ref="combinedEventLogger" />
     </util:map>
 

@@ -23,10 +23,8 @@ public class App {
     }
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(
-                "spring.xml", "loggers.xml","aspects.xml");//, "db.xml");
+                "spring.xml", "loggers.xml","aspects.xml", "db.xml");
         App app = (App) ctx.getBean("app");
-      //  app.client = new Client("1", "John Smith");
-       //  app.eventLogger = new ConsoleEventLogger();
         Client client = ctx.getBean(Client.class);
         System.out.println("Client says: " + client.getGreeting());
         app.logEvents(ctx);
@@ -34,7 +32,7 @@ public class App {
     }
     public void logEvents(ApplicationContext ctx) {
         Event event = ctx.getBean(Event.class);
-        logEvent(EventType.INFO, event, "Some event for 1");
+        logEvent(EventType.WARNING, event, "Some event for 1");
 
         event = ctx.getBean(Event.class);
         logEvent(EventType.INFO, event, "One more event for 1");
@@ -58,5 +56,6 @@ public class App {
         }
 
         logger.logEvent(event);
+
     }
 }

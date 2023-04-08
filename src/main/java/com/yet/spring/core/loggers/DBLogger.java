@@ -46,7 +46,7 @@ public class DBLogger extends AbstractLogger {
         try {
             jdbcTemplate.update("CREATE SCHEMA " + schema);
         } catch (DataAccessException e) {
-            Throwable causeException = e.getCause();
+           /* Throwable causeException = e.getCause();
             if (causeException instanceof SQLException) {
                 SQLException sqlException = (SQLException) causeException;
                 if (sqlException.getSQLState().equals(SQL_ERROR_STATE_SCHEMA_EXISTS)) {
@@ -56,7 +56,7 @@ public class DBLogger extends AbstractLogger {
                 }
             } else {
                 throw e;
-            }
+            }*/
         }
     }
 
@@ -67,7 +67,7 @@ public class DBLogger extends AbstractLogger {
 
             System.out.println("Created table t_event");
         } catch (DataAccessException e) {
-            Throwable causeException = e.getCause();
+           /* Throwable causeException = e.getCause();
             if (causeException instanceof SQLException) {
                 SQLException sqlException = (SQLException) causeException;
                 if (sqlException.getSQLState().equals(SQL_ERROR_STATE_TABLE_EXISTS)) {
@@ -77,7 +77,7 @@ public class DBLogger extends AbstractLogger {
                 }
             } else {
                 throw e;
-            }
+            }*/
         }
     }
     

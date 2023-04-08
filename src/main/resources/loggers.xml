@@ -26,7 +26,7 @@
     <util:list id="combinedLoggersList">
         <ref bean="consoleEventLogger" />
         <ref bean="fileEventLogger" />
-
+        <ref bean="dbLogger" />
     </util:list>
 
     <bean id="combinedEventLogger" class="com.yet.spring.core.loggers.CombinedEventLogger">
